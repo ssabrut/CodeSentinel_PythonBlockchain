@@ -17,3 +17,14 @@ class Blockchain:
         previous_hash = latest_block.hash
         new_block = Block(index=new_index, data=data, previous_hash=previous_hash)
         self.chain.append(new_block)
+
+    def __repr__(self) -> str:
+        chain = ""
+        for block in self.chain:
+            chain += str(block) + "\n"
+        return chain
+
+if __name__ == "__main__":
+    blockchain = Blockchain()
+    blockchain.add_block("Block 1")
+    print(blockchain)

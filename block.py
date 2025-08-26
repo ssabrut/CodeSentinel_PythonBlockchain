@@ -15,7 +15,6 @@ class Block:
         encoded_block_string = block_string.encode()
         sha256 = hashlib.sha256()
         sha256.update(encoded_block_string)
-        print(type(sha256.hexdigest()))
         return sha256.hexdigest()
 
     def __repr__(self) -> str:
