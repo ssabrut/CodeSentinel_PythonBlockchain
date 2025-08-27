@@ -1,8 +1,11 @@
-from cryptography.hazmat.primitives.asymmetric import ec
+from typing import Dict
+
 from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 
-def generate_wallet() -> dict:
+
+def generate_wallet() -> Dict[str, str]:
     # Generate private key
     private_key = ec.generate_private_key(ec.SECP256K1())
 
@@ -14,15 +17,13 @@ def generate_wallet() -> dict:
 
     # Format the public key
     public_key_hex = public_key.public_bytes(
-        encoding=Encoding.X962,
-        format=PublicFormat.UncompressedPoint
+        encoding=Encoding.X962, format=PublicFormat.UncompressedPoint
     ).hex()
 
     # Generate wallet address
     # First get the raw public key bytes
     raw_public_key = public_key.public_bytes(
-        encoding=Encoding.X962,
-        format=PublicFormat.UncompressedPoint
+        encoding=Encoding.X962, format=PublicFormat.UncompressedPoint
     )[1:]
 
     digest = hashes.Hash(hashes.SHA256())
@@ -34,5 +35,5 @@ def generate_wallet() -> dict:
     return {
         "private_key": private_key_hex,
         "public_key": public_key_hex,
-        "wallet_address": wallet_address
+        "wallet_address": wallet_address,
     }

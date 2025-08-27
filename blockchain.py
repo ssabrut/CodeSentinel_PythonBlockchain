@@ -1,15 +1,21 @@
-from block import Block
 from typing import Any
+
+from block import Block
+
 
 class Blockchain:
     def __init__(self) -> None:
         self.chain = [self.create_genesis_block()]
 
     def create_genesis_block(self) -> Block:
-        return Block(0, "Genesis Block", "0000000000000000000000000000000000000000000000000000000000000000")
+        return Block(
+            0,
+            "Genesis Block",
+            "0000000000000000000000000000000000000000000000000000000000000000",
+        )
 
     def get_latest_block(self) -> Block:
-        return self.chain[-1];
+        return self.chain[-1]
 
     def add_block(self, data: Any) -> None:
         latest_block = self.get_latest_block()
@@ -23,6 +29,7 @@ class Blockchain:
         for block in self.chain:
             chain += str(block) + "\n"
         return chain
+
 
 if __name__ == "__main__":
     blockchain = Blockchain()
