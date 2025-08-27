@@ -1,4 +1,5 @@
 from blockchain import Blockchain
+from wallet import generate_wallet
 
 def verify_chain_integrity(network: Blockchain) -> None:
     for i in range(1, len(network.chain)):
