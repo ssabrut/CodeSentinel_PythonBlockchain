@@ -27,27 +27,48 @@ if __name__ == "__main__":
 
     # Adding transaction data
     network.add_block(
-        {
-            "from": peepee["wallet_address"],
-            "to": peepo["wallet_address"],
-            "amount": "0.0017 BTC",
-        }
+        [
+            {
+                "from": peepee["wallet_address"],
+                "to": peepo["wallet_address"],
+                "amount": "0.0017 BTC",
+            },
+            {
+                "from": peepo["wallet_address"],
+                "to": poopoo["wallet_address"],
+                "amount": "0.000017 BTC",
+            },
+        ]
     )
 
     network.add_block(
-        {
-            "from": peepo["wallet_address"],
-            "to": poopoo["wallet_address"],
-            "amount": "0.000017 BTC",
-        }
+        [
+            {
+                "from": peepo["wallet_address"],
+                "to": poopoo["wallet_address"],
+                "amount": "0.000017 BTC",
+            },
+            {
+                "from": peepee["wallet_address"],
+                "to": poopoo["wallet_address"],
+                "amount": "0.000517 BTC",
+            },
+        ]
     )
 
     network.add_block(
-        {
-            "from": peepee["wallet_address"],
-            "to": poopoo["wallet_address"],
-            "amount": "0.000517 BTC",
-        }
+        [
+            {
+                "from": peepee["wallet_address"],
+                "to": poopoo["wallet_address"],
+                "amount": "0.000517 BTC",
+            },
+            {
+                "from": peepee["wallet_address"],
+                "to": poopoo["wallet_address"],
+                "amount": "0.0517 BTC",
+            },
+        ]
     )
 
     # Verify chain integrity
@@ -58,13 +79,21 @@ if __name__ == "__main__":
     print(network, end="\n")
 
     # Tampering the chain
-    network.chain[2].data = {
-        "from": peepee["wallet_address"],
-        "to": poopoo["wallet_address"],
-        "amount": "0.1 BTC",
-    }
+    index = 1
+    network.chain[index].data = [
+        {
+            "from": peepee["wallet_address"],
+            "to": poopoo["wallet_address"],
+            "amount": "0.1 BTC",
+        },
+        {
+            "from": peepee["wallet_address"],
+            "to": poopoo["wallet_address"],
+            "amount": "0.517 BTC",
+        },
+    ]
 
-    network.chain[2].hash = network.chain[2].compute_hash()
+    network.chain[index].hash = network.chain[index].compute_hash()
 
     # Verify the chain again
     verify_chain_integrity(network=network)
